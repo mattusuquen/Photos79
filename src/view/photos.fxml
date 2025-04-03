@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.photos.PhotosController">
+    <top>
+        <ToolBar>
+            <Button text="Upload" onAction="#handleUpload"/>
+            <Button text="Delete" onAction="#handleDelete"/>
+            <Button text="Share" onAction="#handleShare"/>
+        </ToolBar>
+    </top>
+    <center>
+        <ScrollPane>
+            <TilePane fx:id="photoGrid" hgap="10" vgap="10" prefColumns="3"/>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <Label fx:id="statusLabel" text="Welcome to Photo Sharing App" />
+    </bottom>
+</BorderPane>
