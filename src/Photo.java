@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.swing.text.html.HTML.Tag;
+import src.Tag;
 
 public class Photo {
 
