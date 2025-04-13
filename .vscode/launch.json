@@ -1,12 +1,12 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "Launch PhotoApp",
-            "request": "launch",
-            "mainClass": "src.app.PhotoApp",
-            "vmArgs": "--module-path \"C:\\javafx\\lib\" --add-modules javafx.controls,javafx.fxml"
-        }
+      {
+        "type": "java",
+        "name": "Launch PhotoApp",
+        "request": "launch",
+        "mainClass": "src.app.PhotoApp",
+        "vmArgs": "--module-path ${env:JAVA_FX_LIB} --add-modules javafx.controls,javafx.fxml"
+      }
     ]
-}
+  }
