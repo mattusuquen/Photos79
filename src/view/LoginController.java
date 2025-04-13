@@ -23,8 +23,11 @@ public class LoginController {
         }
 
         try {
-            // Load the main application view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/photos1.fxml"));
+            FXMLLoader loader;
+            
+            if (username.equals("admin")) loader = new FXMLLoader(getClass().getResource("/src/view/photos1.fxml"));
+            else loader = new FXMLLoader(getClass().getResource("/src/view/admin.fxml"));
+
             Parent root = loader.load();
             
             // Get the current stage
