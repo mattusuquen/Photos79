@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="src.view.LoginController" style="-fx-padding: 20;">
+    
+    <Label text="Photo Album Login" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Username:"/>
+        <TextField fx:id="usernameField" prefWidth="200"/>
+    </VBox>
+    
+    <Button text="Login" onAction="#handleLogin"/>
+    
+    <Label fx:id="errorLabel" textFill="RED"/>
+</VBox>
