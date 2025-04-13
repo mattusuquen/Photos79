@@ -1,6 +1,7 @@
 package src;
 
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ public class Photo implements Serializable {
         this.caption = "";
         this.tags = new ArrayList<>();
     }
-
+    public File getFile() {
+        return new File(filePath);
+    }
     public String getFilePath() 
     {
         return filePath;
