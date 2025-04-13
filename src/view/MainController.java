@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import src.Album;
-public class Controller {
+public class MainController {
     @FXML private ListView<String> albumListView;
     @FXML private TableView<Album> albumTableView;
     @FXML private TableColumn<Album, String> albumNameColumn;
@@ -28,10 +28,12 @@ public class Controller {
         photoCountColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
         dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
         
-        // Add some sample albums
-        addAlbum("Vacation 2023");
+        /*
+         * addAlbum("Vacation 2023");
         addAlbum("Family Photos");
         addAlbum("Holiday Party");
+         */
+        
         
         // Set up the table view
         albumTableView.setItems(albums);

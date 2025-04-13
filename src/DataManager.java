@@ -47,7 +47,12 @@ public class DataManager {
         return file.isFile() && file.getName().endsWith(".dat");
     }
 
-
+    public static void removeUser(String username) {
+        File file = new File(DATA_DIR + username + ".dat");
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 
     private static User loadUserFromFile(File userFile) {
         try 

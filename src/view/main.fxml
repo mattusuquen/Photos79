@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="src.view.MainController" style="-fx-padding: 10;">
+    
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Logout" onAction="#handleLogout"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Exit" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="Album">
+                <MenuItem text="Create Album" onAction="#handleCreateAlbum"/>
+                <MenuItem text="Delete Album" onAction="#handleDeleteAlbum"/>
+                <MenuItem text="Rename Album" onAction="#handleRenameAlbum"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    
+    <left>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Albums" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <ListView fx:id="albumListView" VBox.vgrow="ALWAYS" onMouseClicked="#handleAlbumSelected"/>
+            <HBox spacing="10">
+                <Button text="Create" onAction="#handleCreateAlbum"/>
+                <Button text="Delete" onAction="#handleDeleteAlbum"/>
+                <Button text="Rename" onAction="#handleRenameAlbum"/>
+            </HBox>
+        </VBox>
+    </left>
+    
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Photo Albums" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+            <TableView fx:id="albumTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="albumNameColumn" text="Album Name" prefWidth="200"/>
+                    <TableColumn fx:id="photoCountColumn" text="Photos" prefWidth="100"/>
+                    <TableColumn fx:id="dateRangeColumn" text="Date Range" prefWidth="200"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

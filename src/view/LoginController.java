@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import src.DataManager;
+
 import java.io.IOException;
 
 public class LoginController {
@@ -23,14 +25,21 @@ public class LoginController {
         }
 
         try {
-            FXMLLoader loader;
+            FXMLLoader loader = null;
             
             if (username.equals("admin")) {
                 loader = new FXMLLoader(getClass().getResource("/src/view/admin.fxml"));
             } else {
-                loader = new FXMLLoader(getClass().getResource("/src/view/photos1.fxml"));
+                try {
+                    if (DataManager.loadUser(username) == null) {
+                        errorLabel.setText("Username does not exist.");
+                        return;
+                    }
+                } catch (ClassNotFoundException e) {
+                    errorLabel.setText("Error: User data could not be loaded.");
+                }
+                loader = new FXMLLoader(getClass().getResource("/src/view/main.fxml"));
             }
-
             Parent root = loader.load();
             
             // Get the current stage

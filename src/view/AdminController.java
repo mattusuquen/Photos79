@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.DataManager;
 import src.User;
 public class AdminController {
     @FXML private TableView<User> userTableView;
@@ -32,7 +34,7 @@ public class AdminController {
     }
     
     @FXML
-    private void handleCreateUser() {
+    private void handleCreateUser() throws IOException {
         String username = newUsernameField.getText().trim();
         
         if (username.isEmpty()) {
@@ -48,6 +50,7 @@ public class AdminController {
         
         // Create new user
         User newUser = new User(username);
+        DataManager.saveUser(newUser);
         users.add(newUser);
         userTableView.getItems().setAll(users);
         newUsernameField.clear();
@@ -69,6 +72,7 @@ public class AdminController {
         }
         
         users.remove(selectedUser);
+        DataManager.removeUser(selectedUser.getUsername());
         userTableView.getItems().setAll(users);
         showStatus("User deleted successfully", false);
     }
