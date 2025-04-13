@@ -28,7 +28,7 @@ public class AdminController {
         
         // Add admin user by default
         users.add(new User("admin"));
-        
+        users.addAll(0, DataManager.getAllUsers());
         // Populate table
         userTableView.getItems().setAll(users);
     }

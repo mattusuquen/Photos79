@@ -6,12 +6,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DataManager {
     private static final String DATA_DIR = "data/";
+    private static User currentUser;
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+    public static void setCurrentUser(User currentUser) {
+        DataManager.currentUser = currentUser;
+    }
     public static void saveUser(User user) throws IOException {
         
         new File(DATA_DIR).mkdirs();
@@ -68,34 +77,42 @@ public class DataManager {
         }
     }
 
-
+    public static void saveCurrentUser() throws IOException {
+        if (currentUser != null) {
+            saveUser(currentUser);
+        }
+    }
     
     public static Map<String, User> loadAllUsers() {
     
         Map<String, User> users = new HashMap<>();
-    File dataDirectory = new File(DATA_DIR);
+        File dataDirectory = new File(DATA_DIR);
     
-    if (!dataDirectory.exists() || !dataDirectory.isDirectory()) 
-    {
-        return users;  
-    }
-    
-    for (File userFile : dataDirectory.listFiles()) {
-        
-        if (isUserDataFile(userFile)) 
+        if (!dataDirectory.exists() || !dataDirectory.isDirectory()) 
         {
-            User user = loadUserFromFile(userFile);
+            return users;  
+        }
+        
+        for (File userFile : dataDirectory.listFiles()) {
             
-            if (user != null) 
+            if (isUserDataFile(userFile)) 
             {
-                users.put(user.getUsername(), user);
+                User user = loadUserFromFile(userFile);
+                
+                if (user != null) 
+                {
+                    users.put(user.getUsername(), user);
+                }
             }
         }
+        
+        return users;
     }
-    
-    return users;
-}
-    
+
+
+    public static List<User> getAllUsers() {
+        return new ArrayList<User>(loadAllUsers().values());
+    }
 
     
 }

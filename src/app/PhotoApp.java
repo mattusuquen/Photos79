@@ -11,9 +11,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.stage.Stage;
+import src.DataManager;
+import src.User;
 
 public class PhotoApp extends Application implements Serializable {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the login screen
@@ -24,7 +28,10 @@ public class PhotoApp extends Application implements Serializable {
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();
     }
-    
+    @Override
+    public void stop() throws Exception {
+        DataManager.saveCurrentUser();
+    }
     public static void main(String[] args) {
         launch(args);
     }

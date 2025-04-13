@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 import src.DataManager;
 
 import java.io.IOException;
-
+import src.User;
 public class LoginController {
     @FXML private TextField usernameField;
     @FXML private Label errorLabel;
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin() throws ClassNotFoundException {
         String username = usernameField.getText();
 
         if (username.isEmpty()) {
@@ -40,6 +40,8 @@ public class LoginController {
                 }
                 loader = new FXMLLoader(getClass().getResource("/src/view/main.fxml"));
             }
+            User currentUser = DataManager.loadUser(username);
+            DataManager.setCurrentUser(DataManager.loadUser(username));
             Parent root = loader.load();
             
             // Get the current stage

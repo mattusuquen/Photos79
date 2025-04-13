@@ -28,12 +28,10 @@ public class MainController {
         photoCountColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
         dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
         
-        /*
-         * addAlbum("Vacation 2023");
+        // Add some sample albums
+        addAlbum("Vacation 2023");
         addAlbum("Family Photos");
         addAlbum("Holiday Party");
-         */
-        
         
         // Set up the table view
         albumTableView.setItems(albums);

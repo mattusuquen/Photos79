@@ -49,7 +49,9 @@ public class Album implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    public String toString() {
+        return name;
+    }
     public void removePhoto(Photo photo) {
         
         if (photo == null) 
@@ -126,7 +128,7 @@ public class Album implements Serializable {
             throw new IllegalArgumentException("Photo not found in the album");
         }
         
-        photo.caption(caption); // Assuming Photo class has a method caption(String caption) to set the caption
+        photo.setCaption(caption); // Assuming Photo class has a method caption(String caption) to set the caption
     }
 
 
