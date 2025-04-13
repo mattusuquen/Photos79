@@ -15,9 +15,6 @@
             "c:\\javafx\\lib\\jdk.jsobject.jar",
             "c:\\javafx\\lib\\jfx.incubator.input.jar",
             "c:\\javafx\\lib\\jfx.incubator.richtext.jar"
-        ],
-        "exclude": [
-            "c:\\Users\\mattd\\Downloads\\openjfx-24_windows-x64_bin-sdk (1)\\javafx-sdk-24\\lib\\javafx-swt.jar"
         ]
     }
 }
