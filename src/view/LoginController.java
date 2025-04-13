@@ -25,8 +25,11 @@ public class LoginController {
         try {
             FXMLLoader loader;
             
-            if (username.equals("admin")) loader = new FXMLLoader(getClass().getResource("/src/view/photos1.fxml"));
-            else loader = new FXMLLoader(getClass().getResource("/src/view/admin.fxml"));
+            if (username.equals("admin")) {
+                loader = new FXMLLoader(getClass().getResource("/src/view/admin.fxml"));
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/src/view/photos1.fxml"));
+            }
 
             Parent root = loader.load();
             

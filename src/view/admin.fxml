@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="src.view.AdminController" style="-fx-padding: 10;">
+    
+    <top>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Logout" onAction="#handleLogout"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Exit" onAction="#handleExit"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label text="Admin Console" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+            
+            <!-- User List -->
+            <VBox spacing="10">
+                <Label text="Users" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                <TableView fx:id="userTableView" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="usernameColumn" text="Username" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+            
+            <!-- User Management Controls -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Label text="Create New User" style="-fx-font-weight: bold;"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField fx:id="newUsernameField" promptText="Username" HBox.hgrow="ALWAYS"/>
+                        <Button text="Create User" onAction="#handleCreateUser"/>
+                    </HBox>
+                </VBox>
+                
+                <VBox spacing="10">
+                    <Label text="Delete User" style="-fx-font-weight: bold;"/>
+                    <Button text="Delete Selected" onAction="#handleDeleteUser"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Status Message -->
+            <Label fx:id="statusLabel" textFill="BLUE"/>
+        </VBox>
+    </center>
+</BorderPane>

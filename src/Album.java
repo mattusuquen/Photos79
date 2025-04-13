@@ -3,6 +3,8 @@ package src;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -12,15 +14,23 @@ public class Album implements Serializable {
     private String name;
     private List<Photo> photos;
     private int index = 0; // Used for the getPhoto method to return a specific photo by index
-    
+    private Calendar dateRange; // Used for the getDateRange method to return the date range of the album
     
     
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<Photo>();
+        this.dateRange = Calendar.getInstance();
+        dateRange.set(Calendar.MILLISECOND,0);
     }
 
+    public int getPhotoCount() {
+        return photos.size();
+    }
 
+    public Date getDateRange(){
+        return dateRange.getTime();
+    }
     public void addPhoto(Photo photo) {
         
         if (photo == null) 
@@ -36,7 +46,9 @@ public class Album implements Serializable {
         photos.add(photo);
     }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void removePhoto(Photo photo) {
         
