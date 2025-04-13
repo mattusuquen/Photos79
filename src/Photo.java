@@ -1,13 +1,15 @@
 package src;
 
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import src.Tag;
 
-public class Photo {
-
+public class Photo implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     private String filePath;
     private String caption;
     private LocalDateTime dateTaken;
