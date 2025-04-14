@@ -22,12 +22,12 @@ public class Photo implements Serializable {
     private List<Tag> tags;
     private transient Image image;
 
-    public Photo(String filePath, Calendar dateTaken) throws FileNotFoundException {
+    public Photo(String filePath, Calendar dateTaken) {
         this.filePath = filePath;
         this.dateTaken = dateTaken;
         this.caption = "";
         this.tags = new ArrayList<>();
-        image = new Image(new FileInputStream(filePath));
+        //image = new Image(new FileInputStream(filePath));
     }
     public File getFile() {
         return new File(filePath);
@@ -46,8 +46,14 @@ public class Photo implements Serializable {
     {
         return dateTaken;
     }
-    public Image getImage() {
-        return image;
+    public Image getImage()  {
+        try {
+            return new Image(new FileInputStream(filePath));
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
     public List<Tag> getTags() 
     {
