@@ -12,7 +12,7 @@ public class Album implements Serializable {
     
     private static final long serialVersionUID = 1L; 
     private String name;
-    private transient List<Photo> photos;
+    private List<Photo> photos;
     private int index = 0; // Used for the getPhoto method to return a specific photo by index
     private Calendar dateRange; // Used for the getDateRange method to return the date range of the album
     

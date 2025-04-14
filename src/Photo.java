@@ -20,7 +20,7 @@ public class Photo implements Serializable {
     private String caption;
     private Calendar dateTaken;
     private List<Tag> tags;
-    private Image image;
+    private transient Image image;
 
     public Photo(String filePath, Calendar dateTaken) throws FileNotFoundException {
         this.filePath = filePath;
