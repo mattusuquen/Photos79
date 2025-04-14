@@ -2,11 +2,15 @@ package src;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javafx.scene.image.Image;
 
 public class Photo implements Serializable {
     
@@ -15,12 +19,14 @@ public class Photo implements Serializable {
     private String caption;
     private LocalDateTime dateTaken;
     private List<Tag> tags;
+    private Image image;
 
-    public Photo(String filePath, LocalDateTime dateTaken) {
+    public Photo(String filePath, LocalDateTime dateTaken) throws FileNotFoundException {
         this.filePath = filePath;
         this.dateTaken = dateTaken;
         this.caption = "";
         this.tags = new ArrayList<>();
+        image = new Image(new FileInputStream(filePath));
     }
     public File getFile() {
         return new File(filePath);
@@ -39,12 +45,41 @@ public class Photo implements Serializable {
     {
         return dateTaken;
     }
-
+    public Image getImage() {
+        return image;
+    }
     public List<Tag> getTags() 
     {
         return tags;
     }
-
+    public List<String> readTags(){
+        List<String> tagList = new ArrayList<>();
+        for (Tag tag : tags) {
+            tagList.add(tag.to_String());
+        }
+        return tagList;
+    }
+    public Tag getTag(int index) 
+    {
+        return tags.get(index);
+    }
+    public void addTag(String name, String value) 
+    {
+        Tag tag = new Tag(name, value);
+        if (!tags.contains(tag)) 
+        {
+            tags.add(tag);
+        }
+    }
+    public void removeTag(Tag tag) 
+    {
+        tags.remove(tag);
+    }
+    public void removeTag(String name, String value) 
+    {
+        Tag tag = new Tag(name, value);
+        tags.remove(tag);
+    }
     public void setCaption(String caption) 
     {
         this.caption = caption;
@@ -56,16 +91,6 @@ public class Photo implements Serializable {
         {
             tags.add(tag);
         }
-    }
-
-    public void removeTag(Tag tag) 
-    {
-        tags.remove(tag);
-    }
-
-    public boolean hasTag(Tag tag) 
-    {
-        return tags.contains(tag);
     }
 
  

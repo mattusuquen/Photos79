@@ -24,7 +24,7 @@ public class Admin extends User {
         
         if(user != null)
         {
-            File file = new File(DataManager.DATA_DIR + username + ".dat");
+            File file = new File(DataManager. + username + ".dat");
             file.delete(); 
             System.out.println("User " + username + " deleted by admin.");
         }

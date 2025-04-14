@@ -104,7 +104,25 @@ public class MainController {
     private void handleAlbumSelected() {
         String selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
         if (selectedAlbum != null) {
-            System.out.println("Selected album: " + selectedAlbum);
+            Album album = currentUser.getAlbumByName(selectedAlbum);
+            if (album != null) {
+                // Load the album view
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/album.fxml"));
+                    Parent root = loader.load();
+                    
+                    AlbumController controller = loader.getController();
+                    controller.setAlbum(album);
+                    
+                    Stage stage = (Stage) albumListView.getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setTitle("Photo Album - " + selectedAlbum);
+                    stage.show();
+                } catch (IOException e) {
+                    showAlert("Error loading album: " + e.getMessage(), Alert.AlertType.ERROR);
+                }
+            }
         }
     }
     

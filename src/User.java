@@ -70,7 +70,6 @@ public class User implements Serializable{
         }
         return null;
     }
-
     public boolean hasAlbum(String name) 
     {
         return getAlbumByName(name) != null;

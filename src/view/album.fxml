@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.view.AlbumController">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Album:" styleClass="header-label">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="albumNameLabel" text="Album Name" styleClass="header-value">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Back to Albums" onAction="#handleBackToAlbums"/>
+            </HBox>
+            <HBox spacing="10">
+                <Button text="Add Photo" onAction="#handleAddPhoto"/>
+                <Button text="Remove Photo" onAction="#handleRemovePhoto" disable="${controller.noPhotoSelected}"/>
+                <Button text="Caption/Recaption" onAction="#handleCaptionPhoto" disable="${controller.noPhotoSelected}"/>
+                <Button text="Copy Photo" onAction="#handleCopyPhoto" disable="${controller.noPhotoSelected}"/>
+                <Button text="Move Photo" onAction="#handleMovePhoto" disable="${controller.noPhotoSelected}"/>
+            </HBox>
+        </VBox>
+    </top>
+    <left>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="0" right="10" bottom="10" left="10"/>
+            </padding>
+            <ScrollPane fitToWidth="true" prefWidth="400" VBox.vgrow="ALWAYS">
+                <TilePane fx:id="photoGrid" hgap="10" vgap="10" prefColumns="3"/>
+            </ScrollPane>
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="Previous" onAction="#handlePreviousPhoto" disable="${controller.noPhotos}"/>
+                <Label fx:id="photoIndexLabel" text="0/0"/>
+                <Button text="Next" onAction="#handleNextPhoto" disable="${controller.noPhotos}"/>
+            </HBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="10" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="0" right="10" bottom="10" left="0"/>
+            </padding>
+            <ImageView fx:id="displayedImageView" fitHeight="300" fitWidth="400" preserveRatio="true"/>
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <HBox>
+                    <Label text="Caption: " styleClass="detail-label"/>
+                    <Label fx:id="captionLabel" styleClass="detail-value"/>
+                </HBox>
+                <HBox>
+                    <Label text="Date: " styleClass="detail-label"/>
+                    <Label fx:id="dateLabel" styleClass="detail-value"/>
+                </HBox>
+                <VBox spacing="5">
+                    <Label text="Tags:" styleClass="detail-label"/>
+                    <ListView fx:id="tagListView" prefHeight="100"/>
+                    <HBox spacing="5">
+                        <ComboBox fx:id="tagTypeComboBox" promptText="Tag Type"/>
+                        <TextField fx:id="tagValueField" promptText="Tag Value" HBox.hgrow="ALWAYS"/>
+                        <Button text="Add Tag" onAction="#handleAddTag" disable="${controller.noPhotoSelected}"/>
+                        <Button text="Delete Tag" onAction="#handleDeleteTag" disable="${controller.noTagSelected}"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

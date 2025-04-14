@@ -25,7 +25,10 @@ public class Tag implements  Serializable{
     {
         return this.value;
     }
-    
+    @Override 
+    public String toString() {
+        return name + " : " + value;
+    }
     
     @Override
     public boolean equals(Object obj) {

@@ -114,5 +114,10 @@ public class DataManager {
         return new ArrayList<User>(loadAllUsers().values());
     }
 
-    
+    public static List<Album> getAlbums() {
+        return currentUser.getAlbums();
+    }
+    public static void saveAlbum(Album album) throws IOException {
+        saveUser(currentUser);
+    }
 }

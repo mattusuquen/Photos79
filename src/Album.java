@@ -67,7 +67,9 @@ public class Album implements Serializable {
         photos.remove(photo);
     }
 
-
+    public Photo getThumbnail() {
+        return photos.isEmpty() ? null : photos.get(0); // Return the first photo as a thumbnail
+    }
 
     public List<Photo> getPhotos() {
         // Return a copy of the list to prevent external modification
