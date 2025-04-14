@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -102,6 +103,7 @@ public class MainController {
     
     @FXML
     private void handleAlbumSelected() {
+        /*
         String selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
         if (selectedAlbum != null) {
             Album album = currentUser.getAlbumByName(selectedAlbum);
@@ -124,8 +126,36 @@ public class MainController {
                 }
             }
         }
+         */
+        
     }
     
+    @FXML
+    private void handleOpenAlbum(){
+        String selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
+        if (selectedAlbum != null) {
+            Album album = currentUser.getAlbumByName(selectedAlbum);
+            if (album != null) {
+                // Load the album view
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/album.fxml"));
+                    Parent root = loader.load();
+                    
+                    AlbumController controller = loader.getController();
+                    controller.setAlbum(album);
+                    
+                    Stage stage = (Stage) albumListView.getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.setTitle("Photo Album - " + selectedAlbum);
+                    stage.show();
+                    DataManager.saveCurrentUser();
+                } catch (IOException e) {
+                    showAlert("Error loading album: " + e.getMessage(), Alert.AlertType.ERROR);
+                }
+            }
+        }
+    }
     @FXML
     private void handleLogout() {
         try {
