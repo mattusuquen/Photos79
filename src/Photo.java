@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,11 +18,11 @@ public class Photo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String filePath;
     private String caption;
-    private LocalDateTime dateTaken;
+    private Calendar dateTaken;
     private List<Tag> tags;
     private Image image;
 
-    public Photo(String filePath, LocalDateTime dateTaken) throws FileNotFoundException {
+    public Photo(String filePath, Calendar dateTaken) throws FileNotFoundException {
         this.filePath = filePath;
         this.dateTaken = dateTaken;
         this.caption = "";
@@ -41,7 +42,7 @@ public class Photo implements Serializable {
         return caption;
     }
 
-    public LocalDateTime getDateTaken() 
+    public Calendar getDateTaken() 
     {
         return dateTaken;
     }

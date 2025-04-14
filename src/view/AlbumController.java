@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -163,10 +164,18 @@ public class AlbumController {
             // Update display
             displayedImageView.setImage(currentPhoto.getImage());
             captionLabel.setText(currentPhoto.getCaption());
-            
-            // Format date
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            dateLabel.setText(sdf.format(currentPhoto.getDateTaken()));
+            Calendar dateTaken = currentPhoto.getDateTaken();
+            int year = dateTaken.get(Calendar.YEAR);
+            int month = dateTaken.get(Calendar.MONTH) + 1; // 0-based, so add 1
+            int day = dateTaken.get(Calendar.DAY_OF_MONTH);
+            int hour = dateTaken.get(Calendar.HOUR_OF_DAY);
+            int minute = dateTaken.get(Calendar.MINUTE);
+            int second = dateTaken.get(Calendar.SECOND);
+
+            // Format to string manually (zero-padding optional)
+            String formattedDate = String.format("%04d-%02d-%02d %02d:%02d:%02d",
+                                                year, month, day, hour, minute, second);
+            dateLabel.setText(formattedDate);
             
             // Update tags
             tags.clear();
@@ -220,7 +229,7 @@ public class AlbumController {
         if (selectedFile != null) {
             try {
                 // Create new photo
-                Photo newPhoto = new Photo(selectedFile.getAbsolutePath(),LocalDateTime.now());
+                Photo newPhoto = new Photo(selectedFile.getAbsolutePath(), Calendar.getInstance());
                 
                 // Add to album
                 currentAlbum.addPhoto(newPhoto);
