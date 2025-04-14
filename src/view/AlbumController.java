@@ -10,14 +10,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import src.Album;
 import src.DataManager;
 import src.Photo;
@@ -25,9 +22,6 @@ import src.Tag;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -506,6 +500,7 @@ public class AlbumController {
             Stage stage = (Stage) albumNameLabel.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            DataManager.saveCurrentUser();
         } catch (IOException e) {
             showErrorAlert("Navigation Error", "Error returning to albums view: " + e.getMessage());
         }
