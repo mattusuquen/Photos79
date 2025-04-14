@@ -69,7 +69,7 @@
                     <Label text="Tags:" styleClass="detail-label"/>
                     <ListView fx:id="tagListView" prefHeight="100"/>
                     <HBox spacing="5">
-                        <ComboBox fx:id="tagTypeComboBox" promptText="Tag Type"/>
+                        <TextField fx:id="tagTypeField" promptText="Tag Type" HBox.hgrow="ALWAYS"/>
                         <TextField fx:id="tagValueField" promptText="Tag Value" HBox.hgrow="ALWAYS"/>
                         <Button text="Add Tag" onAction="#handleAddTag" disable="${controller.noPhotoSelected}"/>
                         <Button text="Delete Tag" onAction="#handleDeleteTag" disable="${controller.noTagSelected}"/>

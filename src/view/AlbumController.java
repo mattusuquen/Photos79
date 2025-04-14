@@ -35,14 +35,14 @@ public class AlbumController {
     @FXML private Label dateLabel;
     @FXML private Label photoIndexLabel;
     @FXML private ListView<String> tagListView;
-    @FXML private ComboBox<String> tagTypeComboBox;
+    @FXML private TextField tagTypeField;
     @FXML private TextField tagValueField;
 
     private Album currentAlbum;
     private Photo currentPhoto;
     private int currentPhotoIndex = -1;
     private ObservableList<Photo> photos = FXCollections.observableArrayList();
-    private ObservableList<Tag> tags = FXCollections.observableArrayList();
+    private ObservableList<String> tagStrings = FXCollections.observableArrayList();
     
     // Properties for binding UI elements
     private final BooleanProperty noPhotoSelected = new SimpleBooleanProperty(true);
@@ -65,11 +65,8 @@ public class AlbumController {
      * Initializes the controller.
      */
     public void initialize() {
-        // Initialize tag types
-        tagTypeComboBox.setItems(FXCollections.observableArrayList("Location", "Person", "Event", "Other"));
-        ObservableList<String> tagNames = FXCollections.observableArrayList("Location", "Person", "Event", "Other");
         // Set up tag ListView
-        tagListView.setItems(tagNames);
+        tagListView.setItems(tagStrings);
         tagListView.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, newVal) -> noTagSelected.set(newVal == null));
         
@@ -172,14 +169,25 @@ public class AlbumController {
             dateLabel.setText(formattedDate);
             
             // Update tags
-            tags.clear();
-            tags.addAll(currentPhoto.getTags());
+            refreshTagList();
             
             // Update properties
             noPhotoSelected.set(false);
             
             // Refresh grid to show selection
             refreshPhotoGrid();
+        }
+    }
+
+    /**
+     * Refreshes the tag list with current photo's tags.
+     */
+    private void refreshTagList() {
+        tagStrings.clear();
+        if (currentPhoto != null) {
+            for (Tag tag : currentPhoto.getTags()) {
+                tagStrings.add(tag.getName() + ": " + tag.getValue());
+            }
         }
     }
 
@@ -192,7 +200,7 @@ public class AlbumController {
         displayedImageView.setImage(null);
         captionLabel.setText("");
         dateLabel.setText("");
-        tags.clear();
+        tagStrings.clear();
         noPhotoSelected.set(true);
         refreshPhotoGrid();
     }
@@ -439,11 +447,11 @@ public class AlbumController {
     private void handleAddTag() {
         if (currentPhoto == null) return;
         
-        String tagType = tagTypeComboBox.getValue();
+        String tagType = tagTypeField.getText().trim();
         String tagValue = tagValueField.getText().trim();
         
-        if (tagType == null || tagType.isEmpty()) {
-            showErrorAlert("Missing Tag Type", "Please select a tag type.");
+        if (tagType.isEmpty()) {
+            showErrorAlert("Missing Tag Type", "Please enter a tag type.");
             return;
         }
         
@@ -451,7 +459,10 @@ public class AlbumController {
             showErrorAlert("Missing Tag Value", "Please enter a tag value.");
             return;
         }
-        Tag tag = new Tag(tagType,tagValue);
+        
+        // Create new tag object
+        Tag tag = new Tag(tagType, tagValue);
+        
         // Check if tag already exists
         if (currentPhoto.getTags().contains(tag)) {
             showErrorAlert("Duplicate Tag", "This tag already exists for this photo.");
@@ -462,10 +473,10 @@ public class AlbumController {
         currentPhoto.addTag(tag);
         
         // Update UI
-        tags.add(tag);
+        refreshTagList();
         
         // Clear input fields
-        tagTypeComboBox.getSelectionModel().clearSelection();
+        tagTypeField.clear();
         tagValueField.clear();
     }
 
@@ -476,14 +487,29 @@ public class AlbumController {
     private void handleDeleteTag() {
         if (currentPhoto == null) return;
         
-        String selectedTag = tagListView.getSelectionModel().getSelectedItem();
-        if (selectedTag == null) return;
+        String selectedTagString = tagListView.getSelectionModel().getSelectedItem();
+        if (selectedTagString == null) return;
         
-        // Remove tag from photo
-        //currentPhoto.removeTag(selectedTag);
+        // Parse the tag string to get type and value
+        String[] parts = selectedTagString.split(": ", 2);
+        if (parts.length != 2) return;
         
-        // Update UI
-        tags.remove(selectedTag);
+        String tagType = parts[0];
+        String tagValue = parts[1];
+        
+        // Find and remove the tag
+        Tag tagToRemove = null;
+        for (Tag tag : currentPhoto.getTags()) {
+            if (tag.getName().equals(tagType) && tag.getValue().equals(tagValue)) {
+                tagToRemove = tag;
+                break;
+            }
+        }
+        
+        if (tagToRemove != null) {
+            currentPhoto.removeTag(tagToRemove);
+            refreshTagList();
+        }
     }
 
     /**
