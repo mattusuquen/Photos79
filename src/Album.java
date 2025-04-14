@@ -199,19 +199,19 @@ public class Album implements Serializable {
         }
     }
 
-    public LocalDateTime getEarliestDate() {
+    public Calendar getEarliestDate() {
         
         if (photos.isEmpty()) 
         {
             return null;
         }
         
-        LocalDateTime earliest = photos.get(0).getDateTaken();
+        Calendar earliest = photos.get(0).getDateTaken();
         for (Photo photo : photos) 
         {
-            LocalDateTime date = photo.getDateTaken();
+            Calendar date = photo.getDateTaken();
             
-            if (date.isBefore(earliest)) 
+            if (date.before(earliest)) 
             {
                 earliest = date;
             }
@@ -222,19 +222,19 @@ public class Album implements Serializable {
 
 
 
-    public LocalDateTime getLatestDate() {
+    public Calendar getLatestDate() {
         
         if (photos.isEmpty()) 
         {
             return null;
         }
         
-        LocalDateTime latest = photos.get(0).getDateTaken();
+        Calendar latest = photos.get(0).getDateTaken();
         for (Photo photo : photos) 
         {
-            LocalDateTime date = photo.getDateTaken();
+            Calendar date = photo.getDateTaken();
             
-            if (date.isAfter(latest)) 
+            if (latest.before(date)) 
             {
                 latest = date;
             }
