@@ -66,17 +66,13 @@ public class DataManager {
     private static User loadUserFromFile(File userFile) {
         try 
         {
-            System.out.println("Attempting to load:" + userFile.getAbsolutePath());
             String username = userFile.getName().replace(".dat", "");
-            User user = loadUser(username);
-            System.out.println("Loaded user: " + (user != null ? user.getUsername() : "null"));
             return loadUser(username);
         } 
         
         catch (Exception e) 
         {
             System.err.println("Error loading user from file: " + userFile.getName());
-            e.printStackTrace();
             return null;
         }
     }
