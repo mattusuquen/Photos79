@@ -1,4 +1,10 @@
 package src.app;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javafx.application.Application;
@@ -6,10 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-<<<<<<< HEAD
-import src.DataManager;
-=======
->>>>>>> c4155be8eda3e721385f0f92d01cf7957d3fb956
 
 public class PhotoApp extends Application implements Serializable {
     private static final long serialVersionUID = 1L;
