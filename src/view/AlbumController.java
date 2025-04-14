@@ -492,7 +492,7 @@ public class AlbumController {
     @FXML
     private void handleBackToAlbums() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("src/view/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             Parent root = loader.load();
             
             // Set the scene
