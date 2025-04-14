@@ -42,8 +42,23 @@ public class User implements Serializable{
     {
         albums.remove(album);
     }
+    public void removeAlbum(String name) 
+    {
+        Album album = getAlbumByName(name);
+        if (album != null) 
+        {
+            albums.remove(album);
+        }
+    }
 
-
+    public void renameAlbum(String oldName, String newName) 
+    {
+        Album album = getAlbumByName(oldName);
+        if (album != null) 
+        {
+            album.setName(newName);
+        }
+    }
     public Album getAlbumByName(String name) 
     {
         for (Album album : albums) 

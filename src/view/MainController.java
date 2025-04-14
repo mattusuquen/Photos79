@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import src.Album;
+import src.DataManager;
+import src.User;
 public class MainController {
     @FXML private ListView<String> albumListView;
     @FXML private TableView<Album> albumTableView;
@@ -21,6 +23,8 @@ public class MainController {
     private ObservableList<Album> albums = FXCollections.observableArrayList();
     private ObservableList<String> albumNames = FXCollections.observableArrayList();
     
+    private User currentUser = DataManager.getCurrentUser();
+
     @FXML
     public void initialize() {
         // Initialize table columns
@@ -28,10 +32,10 @@ public class MainController {
         photoCountColumn.setCellValueFactory(new PropertyValueFactory<>("photoCount"));
         dateRangeColumn.setCellValueFactory(new PropertyValueFactory<>("dateRange"));
         
-        // Add some sample albums
-        addAlbum("Vacation 2023");
-        addAlbum("Family Photos");
-        addAlbum("Holiday Party");
+        for (Album album : currentUser.getAlbums()) {
+            albums.add(album);
+            albumNames.add(album.getName());
+        }
         
         // Set up the table view
         albumTableView.setItems(albums);
@@ -115,7 +119,8 @@ public class MainController {
             stage.setScene(scene);
             stage.setTitle("Photo Album Login");
             stage.show();
-            
+            DataManager.saveCurrentUser();
+            DataManager.setCurrentUser(null);
         } catch (IOException e) {
             showAlert("Error during logout: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -138,12 +143,14 @@ public class MainController {
         Album album = new Album(name);
         albums.add(album);
         albumNames.add(name);
+        currentUser.addAlbum(album);
     }
     
     private void deleteAlbum(String name) {
         // Find and remove the album
         albums.removeIf(album -> album.getName().equals(name));
         albumNames.remove(name);
+        currentUser.removeAlbum(name);
     }
     
     private void renameAlbum(String oldName, String newName) {
@@ -153,6 +160,8 @@ public class MainController {
             return;
         }
         
+        currentUser.renameAlbum(oldName, newName);
+
         // Find and update the album
         for (Album album : albums) {
             if (album.getName().equals(oldName)) {
