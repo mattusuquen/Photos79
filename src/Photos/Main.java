@@ -1,4 +1,4 @@
-package src.app;
+package src.Photos;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import src.DataManager;
  * It initializes the primary stage and loads the login screen.
  * Upon application shutdown, it saves the current user's data.
  */
-public class PhotoApp extends Application {
+public class Main extends Application {
 
     /**
      * Starts the JavaFX application by loading the login screen and setting the initial stage.
