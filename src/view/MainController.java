@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -59,6 +58,34 @@ public class MainController {
         });
     }
     
+    @FXML
+    private void handleSearchPhotos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/search.fxml"));
+            Parent root = loader.load();
+            
+            // Set the scene
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) albumListView.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Navigation Error", "Error opening search view: " + e.getMessage());
+        }
+    }
+    /**
+     * Shows an error alert.
+     * @param title Alert title
+     * @param message Alert message
+     */
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     private void handleDeleteAlbum() {
         String selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
@@ -139,6 +166,7 @@ public class MainController {
                 // Load the album view
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/src/view/album.fxml"));
+                    System.out.print(loader);
                     Parent root = loader.load();
                     
                     AlbumController controller = loader.getController();

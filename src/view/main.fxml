@@ -17,6 +17,9 @@
                 <MenuItem text="Create Album" onAction="#handleCreateAlbum"/>
                 <MenuItem text="Delete Album" onAction="#handleDeleteAlbum"/>
                 <MenuItem text="Rename Album" onAction="#handleRenameAlbum"/>
+                <MenuItem text="Open" onAction="#handleRenameAlbum"/>
+                <MenuItem text="Search" onAction="#handleRenameAlbum"/>
+                
             </Menu>
         </MenuBar>
     </top>
@@ -30,6 +33,7 @@
                 <Button text="Delete" onAction="#handleDeleteAlbum"/>
                 <Button text="Rename" onAction="#handleRenameAlbum"/>
                 <Button text="Open" onAction="#handleOpenAlbum"/>
+                <Button text="Search" onAction="#handleSearchPhotos"/>
             </HBox>
         </VBox>
     </left>

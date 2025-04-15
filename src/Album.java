@@ -13,24 +13,39 @@ public class Album implements Serializable {
     private static final long serialVersionUID = 1L; 
     private String name;
     private List<Photo> photos;
-    private int index = 0; // Used for the getPhoto method to return a specific photo by index
-    private Calendar dateRange; // Used for the getDateRange method to return the date range of the album
+    private int index = 0;
+    private String dateRange = "HI"; 
     
     
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<Photo>();
-        this.dateRange = Calendar.getInstance();
-        dateRange.set(Calendar.MILLISECOND,0);
+        this.dateRange = "N/A";
     }
 
     public int getPhotoCount() {
         return photos.size();
     }
 
-    public Date getDateRange(){
-        return dateRange.getTime();
+    public String getDateRange(){
+        if (photos.isEmpty()) 
+        {
+            return "N/A";
+        } else if (photos.size() == 1) 
+        {
+            Calendar date = photos.get(0).getDateTaken();
+            String dateStr = (date.get(Calendar.MONTH) + 1) + "/" + date.get(Calendar.DAY_OF_MONTH) + "/" + date.get(Calendar.YEAR);
+            return dateStr;
+        } else 
+        {
+            Calendar earliest = getEarliestDate();
+            Calendar latest = getLatestDate();
+            String earliestStr = (earliest.get(Calendar.MONTH) + 1) + "/" + earliest.get(Calendar.DAY_OF_MONTH) + "/" + earliest.get(Calendar.YEAR);
+            String latestStr = (latest.get(Calendar.MONTH) + 1) + "/" + latest.get(Calendar.DAY_OF_MONTH) + "/" + latest.get(Calendar.YEAR);
+            return earliestStr + " - " + latestStr;
+        }
     }
+    public void updateDateRange(){ this.dateRange = getDateRange(); }
     public void addPhoto(Photo photo) {
         
         if (photo == null) 
@@ -42,7 +57,7 @@ public class Album implements Serializable {
         {
             throw new IllegalArgumentException("Photo already exists in album.");
         }
-        
+        updateDateRange();
         photos.add(photo);
     }
 
@@ -64,15 +79,15 @@ public class Album implements Serializable {
             throw new IllegalArgumentException("Photo not found in the album");
         }
         
+        updateDateRange();
         photos.remove(photo);
     }
 
     public Photo getThumbnail() {
-        return photos.isEmpty() ? null : photos.get(0); // Return the first photo as a thumbnail
+        return photos.isEmpty() ? null : photos.get(0); 
     }
 
     public List<Photo> getPhotos() {
-        // Return a copy of the list to prevent external modification
         return new ArrayList<Photo>(photos);
     }
     

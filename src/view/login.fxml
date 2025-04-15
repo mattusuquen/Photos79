@@ -11,7 +11,7 @@
     
     <VBox alignment="CENTER" spacing="10">
         <Label text="Username:"/>
-        <TextField fx:id="usernameField" prefWidth="200"/>
+        <TextField fx:id="usernameField" prefWidth="200" onAction="#handleLogin"/>
     </VBox>
     
     <Button text="Login" onAction="#handleLogin"/>

@@ -1,22 +1,13 @@
 package src.app;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.stage.Stage;
 import src.DataManager;
-import src.User;
 
-public class PhotoApp extends Application implements Serializable {
+public class PhotoApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
