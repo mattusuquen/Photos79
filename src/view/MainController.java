@@ -191,7 +191,7 @@ public class MainController {
             Parent root = loader.load();
             
             Stage stage = (Stage) albumListView.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root,400,300);
             stage.setScene(scene);
             stage.setTitle("Photo Album Login");
             stage.show();
