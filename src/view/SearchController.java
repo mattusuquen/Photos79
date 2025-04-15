@@ -26,6 +26,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for handling the search functionality and photo display in the photo album application.
+ */
 public class SearchController {
 
     @FXML private TilePane photoGrid;
@@ -51,27 +54,39 @@ public class SearchController {
     private final BooleanProperty noPhotos = new SimpleBooleanProperty(true);
     private final BooleanProperty noTagSelected = new SimpleBooleanProperty(true);
 
+    /**
+     * Returns the BooleanProperty that indicates whether a photo is selected.
+     * @return BooleanProperty for noPhotoSelected
+     */
     public BooleanProperty noPhotoSelectedProperty() {
         return noPhotoSelected;
     }
 
+    /**
+     * Returns the BooleanProperty that indicates whether there are photos to display.
+     * @return BooleanProperty for noPhotos
+     */
     public BooleanProperty noPhotosProperty() {
         return noPhotos;
     }
 
+    /**
+     * Returns the BooleanProperty that indicates whether a tag is selected.
+     * @return BooleanProperty for noTagSelected
+     */
     public BooleanProperty noTagSelectedProperty() {
         return noTagSelected;
     }
     
 
     /**
-     * Initializes the controller.
+     * Initializes the controller by loading all photos, setting up the UI, and binding event listeners.
      */
     public void initialize() {
         for (Album album : DataManager.getCurrentUser().getAlbums()) {
             photos.addAll(album.getPhotos());
         }
-        tagComboBox.getItems().addAll("AND","OR"); // Example tags, replace with actual tags
+        tagComboBox.getItems().addAll("AND", "OR"); // Example tags, replace with actual tags
         tagComboBox.getSelectionModel().selectFirst(); // Default selection
         // Set up tag ListView
         tagListView.setItems(tagStrings);
@@ -86,6 +101,10 @@ public class SearchController {
     }
     
 
+    /**
+     * Loads all photos from the user's albums.
+     * @return ObservableList of all photos
+     */
     public ObservableList<Photo> loadPhotos() {
         ObservableList<Photo> allUserPhotos = FXCollections.observableArrayList();
         for (Album album : DataManager.getCurrentUser().getAlbums()) {
@@ -95,7 +114,7 @@ public class SearchController {
     }
 
     /**
-     * Refreshes the photo grid with current photos.
+     * Refreshes the photo grid with the current list of photos.
      */
     private void refreshPhotoGrid() {
         photoGrid.getChildren().clear();
@@ -136,7 +155,7 @@ public class SearchController {
     }
 
     /**
-     * Selects a photo by index.
+     * Selects a photo by its index and displays it in the UI.
      * @param index The index of the photo to select
      */
     private void selectPhoto(int index) {
@@ -172,7 +191,7 @@ public class SearchController {
     }
 
     /**
-     * Refreshes the tag list with current photo's tags.
+     * Refreshes the list of tags for the current photo.
      */
     private void refreshTagList() {
         tagStrings.clear();
@@ -184,7 +203,7 @@ public class SearchController {
     }
 
     /**
-     * Clears the photo display area.
+     * Clears the photo display area and resets the UI to its initial state.
      */
     private void clearPhotoDisplay() {
         currentPhoto = null;
@@ -197,15 +216,20 @@ public class SearchController {
         refreshPhotoGrid();
     }
 
-
+    /**
+     * Handles the search action based on user input.
+     */
     @FXML 
     private void handleSearch(){
+        // Search logic and validation
         Calendar fromDate = null;
         Calendar toDate = null;
         String tag1Type = tag1TypeField.getText().trim();
         String tag1Value = tag1ValueField.getText().trim();
         String tag2Type = tag2TypeField.getText().trim();
         String tag2Value = tag2ValueField.getText().trim();
+        
+        // Handle date range selection and validation
         if (fromDatePicker.getValue() != null) {
             fromDate = Calendar.getInstance();
             fromDate.set(fromDatePicker.getValue().getYear(), fromDatePicker.getValue().getMonthValue() - 1, fromDatePicker.getValue().getDayOfMonth(), 0, 0, 0);
@@ -216,6 +240,8 @@ public class SearchController {
             toDate.set(toDatePicker.getValue().getYear(), toDatePicker.getValue().getMonthValue() - 1, toDatePicker.getValue().getDayOfMonth(), 23, 59, 59);
             toDate.set(Calendar.MILLISECOND, 999);
         }
+        
+        // Validation for tag types and values
         if (!tag1Type.isEmpty() && tag1Value.isEmpty()) {
             showAlert("Missing Tag Type","Please enter a value for the tag 1 type");
             return;
@@ -236,6 +262,8 @@ public class SearchController {
             showAlert("Invalid Date Range","The 'From' date must be before the 'To' date");
             return;
         }
+        
+        // Filtering photos based on the search criteria
         photos.clear();
         tagStrings.clear();
         for (Photo photo : loadPhotos()){
@@ -269,6 +297,12 @@ public class SearchController {
         }
         refreshPhotoGrid();
     }
+
+    /**
+     * Displays an alert with a warning message.
+     * @param title The title of the alert
+     * @param message The message to display
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -276,6 +310,10 @@ public class SearchController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    /**
+     * Clears the search fields and resets the search results.
+     */
     @FXML
     private void handleClearSearch() {
         fromDatePicker.setValue(null);
@@ -335,9 +373,9 @@ public class SearchController {
     }
 
     /**
-     * Shows an error alert.
-     * @param title Alert title
-     * @param message Alert message
+     * Shows an error alert with a message.
+     * @param title The title of the alert
+     * @param message The message to display
      */
     private void showErrorAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

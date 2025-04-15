@@ -26,6 +26,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller class for displaying and managing a photo album view.
+ * <p>
+ * This controller handles the UI logic for viewing, adding, removing, tagging,
+ * copying, and moving photos within an album. It also manages navigation between
+ * photos and updates UI bindings accordingly.
+ * </p>
+ */
 public class AlbumController {
 
     @FXML private Label albumNameLabel;
