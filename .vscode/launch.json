@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Photos",
+            "request": "launch",
+            "mainClass": "src.app.Photos",
+            "projectName": "Photos-2_74ca42ca"
+        },
+        {
+            "type": "java",
             "name": "Launch PhotoApp",
             "request": "launch",
             "mainClass": "src.app.PhotoApp",
